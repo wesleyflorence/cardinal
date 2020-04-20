@@ -65,30 +65,24 @@ class ProposalComponent extends React.Component {
                     <>
                     <form onSubmit={handleSubmit}>
                         <input
-                          key={inputs[0].name}
-                          type="hidden"
-                          name={inputs[0].name}
-                          value={this.props.match.params.propId}
-                          placeholder="Input new value here"
-                          onChange={handleInputChange}
-                          mr={10}
-                        />
-                        <input
                           key={inputs[1].name}
                           type={inputTypes[1]}
                           name={inputs[1].name}
                           value={state[inputs[1].name]}
-                          placeholder="Input new value here"
+                          placeholder="Enter a Candidate here"
                           onChange={handleInputChange}
-                          mr={10}
                         />
                       <button
                         icon="Send"
                         key="submit"
                         type="button"
-                        onClick={handleSubmit}
+                        onClick={(t) => {
+                          // hard coding the first input
+                          state[inputs[0].name] = this.props.match.params.propId;
+                          handleSubmit(t);
+                          }
+                        }
                         position="relative"
-                        top={8}
                       >
                         Submit
                       </button>
