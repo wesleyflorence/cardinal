@@ -53,6 +53,12 @@ contract Ballot {
         }
     }
 
+    function getNumberOfCandidates(uint proposalIndex) public view returns (uint) {
+        if (proposals.length > 0) {
+            return proposals[proposalIndex].candidates.length;
+        }
+    }
+
     function getNumberOfProposals() public view returns (uint) {
         return proposals.length;
     }
