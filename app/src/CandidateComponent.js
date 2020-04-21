@@ -1,5 +1,6 @@
 import React from "react";
 import { newContextComponents } from "@drizzle/react-components";
+import RatingComponent from "./RatingComponent";
 
 const { AccountData, ContractData, ContractForm } = newContextComponents;
 
@@ -11,8 +12,10 @@ class CandidateComponent extends React.Component {
   }
 
   render() {
+    let rating = 0;
     return (
-          <section className="section">
+          <div className="section">
+          <strong>
           <ContractData
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}
@@ -21,7 +24,8 @@ class CandidateComponent extends React.Component {
             methodArgs={[this.props.propId, this.props.index]}
             toUtf8={true}
           />
-          <p>
+          </strong>
+          &nbsp;&nbsp;
           <ContractData
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}
@@ -29,38 +33,13 @@ class CandidateComponent extends React.Component {
             method="getVoteTally"
             methodArgs={[this.props.propId, this.props.index]}
           />
-          </p>
-          <ContractForm
+          <RatingComponent
             drizzle={this.props.drizzle}
-            contract="Ballot"
-            method="vote"
-            render={({
-              inputs,
-              inputTypes,
-              state,
-              handleInputChange,
-              handleSubmit
-            }) => (
-              <>
-              <form onSubmit={handleSubmit}>
-                <button
-                  icon="Send"
-                  key="submit"
-                  type="button"
-                  onClick={(t) => {
-                    state[inputs[0].name] = this.props.propId;
-                    state[inputs[1].name] = this.props.index;
-                    handleSubmit(t);
-                  }}
-                  position="relative"
-                >
-                Vote
-                </button>
-              </form>
-            </>
-          )}
-      />
-      </section>
+            drizzleState={this.props.drizzleState}
+            propId={this.props.propId}
+            index={this.props.index}
+            />
+          </div>
     );
   }
 }

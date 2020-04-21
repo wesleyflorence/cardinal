@@ -1,24 +1,27 @@
 import React from "react";
 import { newContextComponents } from "@drizzle/react-components";
-import CandidateComponent  from "./CandidateComponent";
+import CandidateComponent from "./CandidateComponent";
+import AddCandidateComponent from "./AddCandidateComponent";
 
 const { AccountData, ContractData, ContractForm } = newContextComponents;
 
-
 class ProposalComponent extends React.Component {
-  state = { candidateCounter: null };
+  state = { candidateCounter: null , adminAccount: null};
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
-    console.log(this.props.drizzleState.accounts[0]);
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
     
     // Cache getNumberOfProposals() method and add it to our state
     const candidateCounter = ballotContract.methods.getNumberOfCandidates.cacheCall(this.props.match.params.propId);
-    this.setState({candidateCounter});
+    const adminAccount = ballotContract.methods.getAdmin.cacheCall(this.props.match.params.propId);
+    this.setState({candidateCounter, adminAccount});
+
+    
   }
 
   render() {
+    let addCandidatesField;
     let candidates = []
     let len = 0;
 
@@ -30,7 +33,26 @@ class ProposalComponent extends React.Component {
       if (count) {
         len = count.value;
       }
+
+      // check whether the user is the election official for this ballot
+      const adminStatus = ballotContractState.Ballot.getAdmin[this.state.adminAccount];
+      if (adminStatus) {
+        if (adminStatus.value == this.props.drizzleState.accounts[0]) {
+          // Add Field for adding candidates if they are the admin
+          addCandidatesField = (
+            <AddCandidateComponent
+              drizzle={this.props.drizzle}
+              drizzleState={this.props.drizzleState}
+              propId={this.props.match.params.propId}
+            />
+          );
+        } else {
+          addCandidatesField = (<></>);
+        }
+      }
     }
+
+    // push candidates onto the view
     for (var i = len - 1; i > -1; i -= 1) {
       candidates.push(
         <li key={i.toString()}>
@@ -43,6 +65,7 @@ class ProposalComponent extends React.Component {
         </li>
       );
     }
+
     return (
         <div className="section">
         <h1> 
@@ -55,45 +78,13 @@ class ProposalComponent extends React.Component {
           toUtf8={true}
         />
         </h1>
-        <ContractForm drizzle={this.props.drizzle} contract="Ballot" method="addCandidates" methodArgs={[{ from: this.props.drizzleState.accounts[0] }]} render={({
-                    inputs,
-                    inputTypes,
-                    state,
-                    handleInputChange,
-                    handleSubmit
-                  }) => (
-                    <>
-                    <form onSubmit={handleSubmit}>
-                        <input
-                          key={inputs[1].name}
-                          type={inputTypes[1]}
-                          name={inputs[1].name}
-                          value={state[inputs[1].name]}
-                          placeholder="Enter a Candidate here"
-                          onChange={handleInputChange}
-                        />
-                      <button
-                        icon="Send"
-                        key="submit"
-                        type="button"
-                        onClick={(t) => {
-                          // hard coding the first input
-                          console.log(this.props.drizzle.web3.eth.accounts.givenProvider.selectedAddress);
-                          state[inputs[0].name] = this.props.match.params.propId;
-                          handleSubmit(t);
-                          }
-                        }
-                        position="relative"
-                      >
-                        Submit
-                      </button>
-                      </form>
-                    </>
-                  )}/>
         <ul>
           {candidates}
         </ul>
         <br />
+        <br />
+        {addCandidatesField}
+        <div className="foot">
         <strong>Election Official: </strong>
         <ContractData
           drizzle={this.props.drizzle}
@@ -102,6 +93,7 @@ class ProposalComponent extends React.Component {
           method="getAdmin"
           methodArgs={[this.props.match.params.propId]}
         />
+        </div>
         </div>
     );
   }

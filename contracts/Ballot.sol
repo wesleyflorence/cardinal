@@ -2,7 +2,7 @@ pragma solidity >=0.4.21 <0.7.0;
 
 contract Ballot {
     struct Voter {
-        bool voted;
+        bool[] voted;
         bool registerd;
         uint vote;
     }
@@ -12,7 +12,7 @@ contract Ballot {
         bytes32[] candidates;
         uint[] votes;
         //bytes32[] metaFeilds;
-        //mapping (address => Voter) voters;
+        mapping (address => Voter) voters;
         //mapping (address => address) registeredVoters;
         address[] votersAddress;
         address admin;
@@ -78,10 +78,10 @@ contract Ballot {
         }
     }
 
-    function vote(uint proposalIndex, uint candidateIndex) public returns (bool) {
+    function vote(uint proposalIndex, uint candidateIndex, uint rating) public returns (bool) {
         if (proposals.length > 0) {
             if (candidateIndex < proposals[proposalIndex].votes.length) {
-                proposals[proposalIndex].votes[candidateIndex] += 1;
+                proposals[proposalIndex].votes[candidateIndex] += rating;
                 return true;
             }
         }
