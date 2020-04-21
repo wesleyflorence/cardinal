@@ -4,7 +4,6 @@ import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 import drizzleOptions from "./drizzleOptions";
 // import MyComponent from "./MyComponent";
-import AccountComponent from "./AccountComponent";
 import BallotComponent from "./BallotComponent";
 import ProposalComponent from "./ProposalComponent";
 import "./App.css";
@@ -30,14 +29,10 @@ const App = () => {
                     <li> 
                       <Link to="/">Home</Link>
                     </li>
-                    <li>
-                      <Link to="/account">Account</Link>
-                    </li>
                   </ul>
             </section>
                 <hr />
                 <Route exact path="/" render={props => <BallotComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
-                <Route exact path="/account" render={props => <AccountComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
                 <Route path="/props/:propId" render={props => <ProposalComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
               </Router>
               //<BallotComponent drizzle={drizzle} drizzleState={drizzleState} />

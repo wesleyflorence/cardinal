@@ -18,6 +18,7 @@ class ProposalListComponent extends React.Component {
           contract="Ballot"
           method="getProposal"
           methodArgs={[this.props.index]}
+          toUtf8={true}
         />
     );
   }

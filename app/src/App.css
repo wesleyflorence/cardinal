@@ -22,3 +22,27 @@
  margin:0 0.8%;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited { 
+  text-decoration: none;
+  color:black;
+}
+
+a:focus { 
+  text-decoration: none;
+  color:#e60012;
+}
+
+a:hover, a:active { 
+  text-decoration: none;
+  color:#e60012
+}

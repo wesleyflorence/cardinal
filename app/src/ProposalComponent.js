@@ -53,6 +53,7 @@ class ProposalComponent extends React.Component {
           contract="Ballot"
           method="getProposal"
           methodArgs={[this.props.match.params.propId]}
+          toUtf8={true}
         />
         </h1>
         <ContractForm drizzle={this.props.drizzle} contract="Ballot" method="addCandidates" render={({
@@ -89,7 +90,9 @@ class ProposalComponent extends React.Component {
                     </form>
                     </>
                   )}/>
-        {candidates}
+        <ul>
+          {candidates}
+        </ul>
         </div>
     );
   }

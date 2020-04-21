@@ -11,7 +11,6 @@ class BallotComponent extends React.Component {
 
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
-    
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
     
@@ -55,7 +54,9 @@ class BallotComponent extends React.Component {
       <div className="section">
       <h2>Proposal</h2>
         <ContractForm drizzle={this.props.drizzle} contract="Ballot" method="createProposal" />
-        {proposals}    
+        <ul>
+          {proposals}
+        </ul>   
       </div> 
     </div>
   );
