@@ -13,7 +13,6 @@ class BallotComponent extends React.Component {
     const { drizzle, drizzleState } = this.props;
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
-    
     // Cache getNumberOfProposals() method and add it to our state
     const propsalCounter = ballotContract.methods.getNumberOfProposals.cacheCall();
     this.setState({propsalCounter});

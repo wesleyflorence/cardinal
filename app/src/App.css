@@ -9,6 +9,10 @@
   margin: 4rem auto auto;
 }
 
+.address {
+  font-family: monospace;
+}
+
 #listHorizontal ul {
   display: flex;
   margin: 0;
