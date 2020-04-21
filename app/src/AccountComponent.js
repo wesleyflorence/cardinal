@@ -15,9 +15,13 @@ class AccountComponent extends React.Component {
     <div className="App">
       <div className="section">
         <h2>Active Account</h2>
-          <div className="address">
-          { this.props.drizzle.web3.eth.accounts.givenProvider.selectedAddress }
-          </div>
+        <AccountData
+          drizzle={this.props.drizzle}
+          drizzleState={this.props.drizzleState}
+          accountIndex={0}
+          units="ether"
+          precision={3}
+        />
       </div>
     </div>
     );

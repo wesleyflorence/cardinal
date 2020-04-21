@@ -6,8 +6,10 @@ import Ballot from "./contracts/Ballot.json";
 
 const options = {
   web3: {
-    block: false,
-    customProvider: new Web3("ws://localhost:8545"),
+    fallback: {
+      type: "ws",
+      url: "ws://127.0.0.1:8545",
+    }
   },
   contracts: [Ballot]
 };
