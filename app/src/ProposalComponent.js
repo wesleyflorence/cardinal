@@ -1,5 +1,6 @@
 import React from "react";
 import { newContextComponents } from "@drizzle/react-components";
+import CandidateComponent  from "./CandidateComponent";
 
 const { AccountData, ContractData, ContractForm } = newContextComponents;
 
@@ -33,13 +34,11 @@ class ProposalComponent extends React.Component {
     for (var i = len - 1; i > -1; i -= 1) {
       candidates.push(
         <li key={i.toString()}>
-          <ContractData
+          <CandidateComponent
             drizzle={this.props.drizzle}
             drizzleState={this.props.drizzleState}
-            contract="Ballot"
-            method="getCandidates"
-            methodArgs={[this.props.match.params.propId, i]}
-            toUtf8={true}
+            index={i}
+            propId={this.props.match.params.propId}
           />
         </li>
       );

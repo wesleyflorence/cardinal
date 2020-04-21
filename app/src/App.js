@@ -3,10 +3,10 @@ import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
 import drizzleOptions from "./drizzleOptions";
-// import MyComponent from "./MyComponent";
 import AccountComponent from "./AccountComponent";
 import BallotComponent from "./BallotComponent";
 import ProposalComponent from "./ProposalComponent";
+import AboutComponent from "./AboutComponent";
 import "./App.css";
 
 const drizzle = new Drizzle(drizzleOptions);
@@ -23,7 +23,6 @@ const App = () => {
           }
 
           return (
-              //<MyComponent drizzle={drizzle} drizzleState={drizzleState} />
               <Router>
                 <section id="listHorizontal">
                   <ul>
@@ -33,14 +32,17 @@ const App = () => {
                    <li>
                       <Link to="/account">Account</Link>
                     </li>
+                   <li>
+                      <Link to="/about">About</Link>
+                    </li>
                   </ul>
-            </section>
+                </section>
                 <hr />
                 <Route exact path="/" render={props => <BallotComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
                 <Route exact path="/account" render={props => <AccountComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
                 <Route path="/props/:propId" render={props => <ProposalComponent drizzle={drizzle} drizzleState={drizzleState} {...props} />} />
+                <Route exact path="/about" component={AboutComponent} />
               </Router>
-              //<BallotComponent drizzle={drizzle} drizzleState={drizzleState} />
           )
         }}
       </DrizzleContext.Consumer>

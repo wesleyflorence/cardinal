@@ -31,12 +31,13 @@ contract Ballot {
     function addCandidates(uint proposalIndex, bytes32 candidate) public returns (bool){
         if (proposals.length > 0) {
             proposals[proposalIndex].candidates.push(candidate);
+            proposals[proposalIndex].votes.push(0);
         }
     }
 
     function getCandidates(uint proposalIndex, uint candidateIndex) public view returns (bytes32 candidateName) {
         if (proposals.length > 0) {
-            Proposal storage p = proposals[proposalIndex];
+            Proposal memory p = proposals[proposalIndex];
             return (p.candidates[candidateIndex]);
         }
     }
@@ -53,9 +54,27 @@ contract Ballot {
 
     function getProposal(uint proposalIndex) public view returns (bytes32 title) {
         if (proposals.length > 0) {
-            Proposal storage p = proposals[proposalIndex];
+            Proposal memory p = proposals[proposalIndex];
             return (p.title);
         }
     }
 
+    function getVoteTally(uint proposalIndex, uint candidateIndex) public view returns (uint) {
+        if (proposals.length > 0) {
+            Proposal memory p = proposals[proposalIndex];
+            if (candidateIndex < p.votes.length) {
+                return (p.votes[candidateIndex]);
+            }
+        }
+    }
+
+    function vote(uint proposalIndex, uint candidateIndex) public returns (bool) {
+        if (proposals.length > 0) {
+            if (candidateIndex < proposals[proposalIndex].votes.length) {
+                proposals[proposalIndex].votes[candidateIndex] += 1;
+                return true;
+            }
+        }
+        return false;
+    }
 }
