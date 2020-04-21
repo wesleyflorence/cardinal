@@ -28,10 +28,20 @@ contract Ballot {
         return true;
     }
 
+    function getAdmin(uint proposalIndex) public view returns (address) {
+        if (proposals.length > 0) {
+            if (proposals[proposalIndex].admin != address(0)) {
+                return proposals[proposalIndex].admin;
+            }
+        }
+    }
+
     function addCandidates(uint proposalIndex, bytes32 candidate) public returns (bool){
         if (proposals.length > 0) {
-            proposals[proposalIndex].candidates.push(candidate);
-            proposals[proposalIndex].votes.push(0);
+            if (msg.sender == proposals[proposalIndex].admin) {
+                proposals[proposalIndex].candidates.push(candidate);
+                proposals[proposalIndex].votes.push(0);
+            }
         }
     }
 

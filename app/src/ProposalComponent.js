@@ -9,7 +9,7 @@ class ProposalComponent extends React.Component {
   state = { candidateCounter: null };
   componentDidMount() {
     const { drizzle, drizzleState } = this.props;
-
+    console.log(this.props.drizzleState.accounts[0]);
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
     
@@ -55,7 +55,7 @@ class ProposalComponent extends React.Component {
           toUtf8={true}
         />
         </h1>
-        <ContractForm drizzle={this.props.drizzle} contract="Ballot" method="addCandidates" render={({
+        <ContractForm drizzle={this.props.drizzle} contract="Ballot" method="addCandidates" methodArgs={[{ from: this.props.drizzleState.accounts[0] }]} render={({
                     inputs,
                     inputTypes,
                     state,
@@ -87,12 +87,21 @@ class ProposalComponent extends React.Component {
                       >
                         Submit
                       </button>
-                    </form>
+                      </form>
                     </>
                   )}/>
         <ul>
           {candidates}
         </ul>
+        <br />
+        <strong>Election Official: </strong>
+        <ContractData
+          drizzle={this.props.drizzle}
+          drizzleState={this.props.drizzleState}
+          contract="Ballot"
+          method="getAdmin"
+          methodArgs={[this.props.match.params.propId]}
+        />
         </div>
     );
   }
