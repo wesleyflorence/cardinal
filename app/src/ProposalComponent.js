@@ -85,6 +85,10 @@ class ProposalComponent extends React.Component {
         <br />
         {addCandidatesField}
         <div className="foot">
+        <div>
+          Give each candidate a rating.
+        </div>
+        <br />
         <strong>Election Official: </strong>
         <ContractData
           drizzle={this.props.drizzle}

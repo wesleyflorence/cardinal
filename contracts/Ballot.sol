@@ -2,7 +2,7 @@ pragma solidity >=0.4.21 <0.7.0;
 
 contract Ballot {
     struct Voter {
-        bool[] voted;
+        uint[] voted;
         bool registerd;
         uint vote;
     }
@@ -78,13 +78,36 @@ contract Ballot {
         }
     }
 
+    
+
+    function votedAlready(uint proposalIndex, uint candidateIndex, uint rating) public returns (bool) {
+        if (proposals.length > 0) {
+            if (candidateIndex < proposals[proposalIndex].votes.length) {
+                Voter memory v = proposals[proposalIndex].voters[msg.sender];
+                for (uint i = 0; i < v.voted.length; i++) {
+                    if (v.voted[i] == candidateIndex) { 
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
+        }
+    }
     function vote(uint proposalIndex, uint candidateIndex, uint rating) public returns (bool) {
         if (proposals.length > 0) {
             if (candidateIndex < proposals[proposalIndex].votes.length) {
+                Voter memory v = proposals[proposalIndex].voters[msg.sender];
+                for (uint i = 0; i < v.voted.length; i++) {
+                    if (v.voted[i] == candidateIndex) { 
+                        return false;
+                    }
+                }
+                proposals[proposalIndex].voters[msg.sender].voted.push(candidateIndex);
                 proposals[proposalIndex].votes[candidateIndex] += rating;
                 return true;
             }
+            
         }
-        return false;
     }
 }

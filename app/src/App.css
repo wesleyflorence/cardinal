@@ -9,6 +9,12 @@
   margin: 4rem auto auto;
 }
 
+.sectionCandidate {
+  text-align: left;
+  max-width: 720px;
+  margin: 3.5rem auto auto;
+}
+
 .address {
   font-family: monospace;
 }
@@ -55,6 +61,7 @@ a:hover, a:active {
   position: fixed;
   bottom: 0;
   padding: 0 0 15px;
+  background-color: white;
 }
 
 .rate {

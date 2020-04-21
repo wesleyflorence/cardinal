@@ -14,7 +14,7 @@ class CandidateComponent extends React.Component {
   render() {
     let rating = 0;
     return (
-          <div className="section">
+          <div className="sectionCandidate">
           <strong>
           <ContractData
             drizzle={this.props.drizzle}
