@@ -32,7 +32,7 @@ class RatingComponent extends React.Component {
                     state[inputs[2].name] = 5;
                     handleSubmit(t);
                   }}/>
-                  <label htmlFor={ "star5_" + this.props.index }  title="text">5 stars</label>
+                  <label htmlFor={ "star5_" + this.props.index }  title="Advocate">5 stars</label>
 
                   <input type="radio" id={ "star4_" + this.props.index } className="rate" value="4" onChange={(t) => {
                     state[inputs[0].name] = this.props.propId;
@@ -40,7 +40,7 @@ class RatingComponent extends React.Component {
                     state[inputs[2].name] = 4;
                     handleSubmit(t);
                   }}/>
-                  <label htmlFor={ "star4_" + this.props.index } title="text">4 stars</label>
+                  <label htmlFor={ "star4_" + this.props.index } title="Approve">4 stars</label>
 
                   <input type="radio" id={ "star3_" + this.props.index } className="rate" value="3" onChange={(t) => {
                     state[inputs[0].name] = this.props.propId;
@@ -48,7 +48,7 @@ class RatingComponent extends React.Component {
                     state[inputs[2].name] = 3;
                     handleSubmit(t);
                   }}/>
-                  <label htmlFor={ "star3_" + this.props.index } title="text">3 stars</label>
+                  <label htmlFor={ "star3_" + this.props.index } title="Neutral">3 stars</label>
 
                   <input type="radio" id={ "star2_" + this.props.index }  className="rate" value="2" onChange={(t) => {
                     state[inputs[0].name] = this.props.propId;
@@ -56,14 +56,14 @@ class RatingComponent extends React.Component {
                     state[inputs[2].name] = 2;
                     handleSubmit(t);
                   }}/>
-                  <label htmlFor={ "star2_" + this.props.index } title="text">2 stars</label>
+                  <label htmlFor={ "star2_" + this.props.index } title="Disapprove">2 stars</label>
 
                   <input type="radio" id={ "star1_" + this.props.index } className="rate" value="1" onChange={(t) => {
                     state[inputs[0].name] = this.props.propId;
                     state[inputs[1].name] = this.props.index;
                     state[inputs[2].name] = 1;
                     handleSubmit(t);}}/>
-                  <label htmlFor={ "star1_" + this.props.index } title="text">1 star</label>
+                  <label htmlFor={ "star1_" + this.props.index } title="Condemn">1 star</label>
                 </div>
               </form>
             </>
