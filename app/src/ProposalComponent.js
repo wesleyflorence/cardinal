@@ -16,8 +16,6 @@ class ProposalComponent extends React.Component {
     const candidateCounter = ballotContract.methods.getNumberOfCandidates.cacheCall(this.props.match.params.propId);
     const adminAccount = ballotContract.methods.getAdmin.cacheCall(this.props.match.params.propId);
     this.setState({candidateCounter, adminAccount});
-
-    
   }
 
   render() {

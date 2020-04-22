@@ -9,6 +9,8 @@ export default () => {
       <p>
       Cardinal is a decentralized voting app powered by Ethereum.
       </p>
+      <br />
+      <a href="https://en.wikipedia.org/wiki/Cardinal_voting"> Why Cardinal? </a>
     </section>
     </div>
   );
