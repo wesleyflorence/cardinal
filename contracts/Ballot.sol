@@ -80,7 +80,7 @@ contract Ballot {
 
     
 
-    function votedAlready(uint proposalIndex, uint candidateIndex, uint rating) public returns (bool) {
+    function votedAlready(uint proposalIndex, uint candidateIndex) public view returns (bool) {
         if (proposals.length > 0) {
             if (candidateIndex < proposals[proposalIndex].votes.length) {
                 Voter memory v = proposals[proposalIndex].voters[msg.sender];
@@ -94,6 +94,7 @@ contract Ballot {
             
         }
     }
+
     function vote(uint proposalIndex, uint candidateIndex, uint rating) public returns (bool) {
         if (proposals.length > 0) {
             if (candidateIndex < proposals[proposalIndex].votes.length) {

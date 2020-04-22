@@ -6,13 +6,38 @@ const { AccountData, ContractData, ContractForm } = newContextComponents;
 
 
 class CandidateComponent extends React.Component {
+  state = { votedTracker: null };
 
   componentDidMount() {
     const { drizzle, drizzleState, index } = this.props;
+    const ballotContract = drizzle.contracts.Ballot;
+    const votedTracker = ballotContract.methods.votedAlready.cacheCall(this.props.propId, this.props.index);
+    this.setState({votedTracker});
   }
 
   render() {
-    let rating = 0;
+    let votedStatus = true;
+    let rating;
+
+    if (this.props.drizzleState.drizzleStatus.initialized) {
+      const ballotContractState = this.props.drizzleState.contracts;
+      const votedFromCache = ballotContractState.Ballot.votedAlready[this.state.votedTracker];
+      if (votedFromCache) {
+        votedStatus = votedFromCache.value;
+      }
+    }
+
+    if (votedStatus == false) {
+      rating = (
+        <RatingComponent
+          drizzle={this.props.drizzle}
+          drizzleState={this.props.drizzleState}
+          propId={this.props.propId}
+          index={this.props.index}
+        />
+      );
+    }
+
     return (
           <div className="sectionCandidate">
           <strong>
@@ -33,12 +58,7 @@ class CandidateComponent extends React.Component {
             method="getVoteTally"
             methodArgs={[this.props.propId, this.props.index]}
           />
-          <RatingComponent
-            drizzle={this.props.drizzle}
-            drizzleState={this.props.drizzleState}
-            propId={this.props.propId}
-            index={this.props.index}
-            />
+          { rating }
           </div>
     );
   }
