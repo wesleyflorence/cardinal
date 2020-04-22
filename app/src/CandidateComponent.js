@@ -2,14 +2,14 @@ import React from "react";
 import { newContextComponents } from "@drizzle/react-components";
 import RatingComponent from "./RatingComponent";
 
-const { AccountData, ContractData, ContractForm } = newContextComponents;
+const { ContractData } = newContextComponents;
 
 
 class CandidateComponent extends React.Component {
   state = { votedTracker: null };
 
   componentDidMount() {
-    const { drizzle, drizzleState, index } = this.props;
+    const { drizzle } = this.props;
     const ballotContract = drizzle.contracts.Ballot;
     const votedTracker = ballotContract.methods.votedAlready.cacheCall(this.props.propId, this.props.index);
     this.setState({votedTracker});
@@ -27,7 +27,7 @@ class CandidateComponent extends React.Component {
       }
     }
 
-    if (votedStatus == false) {
+    if (votedStatus === false) {
       rating = (
         <RatingComponent
           drizzle={this.props.drizzle}

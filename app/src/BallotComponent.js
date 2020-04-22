@@ -1,16 +1,16 @@
 import React from "react";
-import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { newContextComponents } from "@drizzle/react-components";
 import ProposalListComponent from "./ProposalListComponent";
 
-const { AccountData, ContractData, ContractForm } = newContextComponents;
+const { ContractForm } = newContextComponents;
 
 
 class BallotComponent extends React.Component {
   state = { propsalCounter: null };
 
   componentDidMount() {
-    const { drizzle, drizzleState } = this.props;
+    const { drizzle } = this.props;
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
     // Cache getNumberOfProposals() method and add it to our state

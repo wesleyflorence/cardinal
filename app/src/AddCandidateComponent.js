@@ -1,13 +1,12 @@
 import React from "react";
 import { newContextComponents } from "@drizzle/react-components";
 
-const { AccountData, ContractData, ContractForm } = newContextComponents;
+const { ContractForm } = newContextComponents;
 
 
 class AddCandidateComponent extends React.Component {
 
   componentDidMount() {
-    const { drizzle, drizzleState } = this.props;
   }
 
   render() {

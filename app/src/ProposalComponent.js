@@ -3,12 +3,12 @@ import { newContextComponents } from "@drizzle/react-components";
 import CandidateComponent from "./CandidateComponent";
 import AddCandidateComponent from "./AddCandidateComponent";
 
-const { AccountData, ContractData, ContractForm } = newContextComponents;
+const { ContractData } = newContextComponents;
 
 class ProposalComponent extends React.Component {
   state = { candidateCounter: null , adminAccount: null};
   componentDidMount() {
-    const { drizzle, drizzleState } = this.props;
+    const { drizzle } = this.props;
     // Set the contract we want to intereact with
     const ballotContract = drizzle.contracts.Ballot;
     
@@ -35,7 +35,7 @@ class ProposalComponent extends React.Component {
       // check whether the user is the election official for this ballot
       const adminStatus = ballotContractState.Ballot.getAdmin[this.state.adminAccount];
       if (adminStatus) {
-        if (adminStatus.value == this.props.drizzleState.accounts[0]) {
+        if (adminStatus.value === this.props.drizzleState.accounts[0]) {
           // Add Field for adding candidates if they are the admin
           addCandidatesField = (
             <AddCandidateComponent
