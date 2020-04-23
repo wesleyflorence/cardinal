@@ -38,7 +38,6 @@ class AddCandidateComponent extends React.Component {
                         type="button"
                         onClick={(t) => {
                           // hard coding the first input
-                          console.log(this.props.drizzle.web3.eth.accounts.givenProvider.selectedAddress);
                           state[inputs[0].name] = this.props.propId;
                           handleSubmit(t);
                           }
